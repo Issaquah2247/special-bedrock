@@ -2,6 +2,26 @@
 
 **Turn your Minecraft Bedrock world into a server that anyone can join - including PS4/PS5!**
 
+## ⚡ One-Line Install (Windows 11)
+
+**For a brand new PC with nothing installed:**
+
+Open PowerShell **as Administrator** and run:
+
+```powershell
+irm https://raw.githubusercontent.com/Issaquah2247/special-bedrock/main/install.ps1 | iex
+```
+
+This will automatically:
+- ✅ Install Node.js (if not present)
+- ✅ Install Git (if not present)
+- ✅ Clone the repository
+- ✅ Install all dependencies
+- ✅ Offer to create a desktop shortcut
+- ✅ Ask if you want to start it now
+
+**That's it! Everything is automated!**
+
 ## 📸 Screenshots
 
 ### Terminal Output
