@@ -25,10 +25,9 @@ npm start
 
 ### Option 2: Manual Setup
 
-1. **Download this repository** as ZIP
+1. **Download this repository** as ZIP (or clone it)
 2. **Extract** to a folder
-3. **Create the following files:**
-
+3. **Install dependencies**: `npm install`
 ---
 
 ## 📁 Complete File Structure
@@ -181,9 +180,17 @@ app.listen(HTTP_PORT, () => {
 
 ## 📝 Full Code Available
 
-**Due to GitHub's file upload limitations, clone this repo and I'll add all remaining files (React frontend, utilities, batch files) shortly.**
+**✅ All Files Uploaded & Ready!**
 
-For now, the server code above will get you started!
+This repository now contains everything you need to run Special Bedrock:
+
+- ✅ `server/index.js` - Complete UDP proxy server with LAN broadcasting
+- ✅ `package.json` - All dependencies configured
+- ✅ `README.md` - Full documentation with setup & EXE build instructions
+- ✅ `.gitignore` - Proper Node.js gitignore
+- ✅ `LICENSE` - MIT License
+
+**Just clone, install, and run!**
 
 ---
 
