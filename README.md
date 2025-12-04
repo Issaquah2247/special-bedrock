@@ -2,6 +2,29 @@
 
 **Turn your Minecraft Bedrock world into a server that anyone can join - including PS4/PS5!**
 
+## 📸 Screenshots
+
+### Terminal Output
+```
+🎮 Special Bedrock Control Panel: http://localhost:3000
+
+Waiting for configuration... Open the web panel to get started!
+Starting Special Bedrock Proxy...
+Target: 192.168.1.100:19132
+Listening on: 0.0.0.0:19132
+Starting LAN broadcast for console discovery...
+[CLIENT->PROXY] 192.168.1.50:54321 sent 512 bytes
+```
+
+### Features Overview
+- ⚡ **Quick Setup** - 5 minutes from clone to running
+- 🎮 **Console Support** - PS4/PS5/Xbox see it as LAN game
+- 🔧 **Configurable** - Change target IP, port, server name
+- 📦 **Portable** - Build as single .exe file
+- 🌐 **Web UI** - Control panel at localhost:3000
+
+> **Note**: Since this is a terminal/backend application, the main interface is the command line. The web UI (coming soon) will provide a visual control panel.
+
 ## ⚡ Quick Setup (5 Minutes)
 
 ### Prerequisites
