@@ -190,3 +190,64 @@ For now, the server code above will get you started!
 ## 📖 License
 
 MIT License - Free to use and modify
+
+
+---
+
+## 📦 Build as Windows .EXE (Standalone)
+
+Want to distribute this as a single `.exe` file? Follow these steps:
+
+### Method 1: Using pkg (Recommended)
+
+```bash
+# Install pkg globally
+npm install -g pkg
+
+# Build the executable
+pkg server/index.js --targets node18-win-x64 --output special-bedrock.exe
+```
+
+This creates `special-bedrock.exe` that users can double-click to run!
+
+### Method 2: Full Package with UI
+
+For a complete package with web UI:
+
+1. Install `pkg` as a dev dependency:
+```bash
+npm install --save-dev pkg
+```
+
+2. Add to `package.json` scripts:
+```json
+"scripts": {
+  "build:exe": "pkg server/index.js --targets node18-win-x64 --output dist/SpecialBedrock.exe"
+}
+```
+
+3. Build:
+```bash
+npm run build:exe
+```
+
+### Distribution
+
+The generated `.exe` includes:
+- ✅ Node.js runtime (no installation needed)
+- ✅ Complete server code
+- ✅ UDP proxy functionality
+- ✅ LAN broadcasting
+
+**Users just double-click the `.exe` and open `http://localhost:3000`!**
+
+### GitHub Release
+
+To share your `.exe`:
+1. Go to your repo's **Releases** page
+2. Click **"Create a new release"**
+3. Upload `special-bedrock.exe`
+4. Add release notes
+5. Publish!
+
+Now anyone can download and run it without Node.js installed! 🎉
