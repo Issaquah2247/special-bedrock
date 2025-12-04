@@ -1,0 +1,23 @@
+{
+  "name": "special-bedrock",
+  "version": "1.0.0",
+  "description": "Bedrock Edition Server Proxy with LAN Broadcasting and Client Utilities",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "concurrently \"node server/index.js\" \"cd client && npm start\"",
+    "build": "cd client && npm run build",
+    "install-all": "npm install && cd client && npm install"
+  },
+  "keywords": ["minecraft", "bedrock", "proxy", "server"],
+  "author": "Issaquah2247",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "bedrock-protocol": "^3.13.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
