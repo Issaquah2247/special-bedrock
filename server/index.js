@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dgram = require('dgram');
 const path = require('path');
+const CheatManager = require('./cheats');
 
 const app = express();
 const HTTP_PORT = 3000;
@@ -59,14 +60,58 @@ app.post('/api/stop', (req, res) => {
 function startProxyServer() {
   console.log(`Starting Special Bedrock Proxy...`);
   console.log(`Target: ${config.targetIP}:${config.targetPort}`);
+
+  // Cheat API endpoints
+app.get('/api/cheats', (req, res) => {
+  if (!proxyServer || !proxyServer.cheatManager) {
+    return res.json({ active: [], available: getAllCheats() });
+  }
+  res.json({ 
+    active: proxyServer.cheatManager.getActiveCommands(),
+    available: getAllCheats()
+  });
+});
+
+app.post('/api/cheats/toggle', (req, res) => {
+  const { cheat, playerId } = req.body;
+  if (!proxyServer || !proxyServer.cheatManager) {
+    return res.status(400).json({ error: 'Server not running' });
+  }
+  // Toggle cheat logic here
+  res.json({ success: true, cheat, enabled: true });
+});
+
+function getAllCheats() {
+  return [
+    { id: 'fly', name: 'Fly', description: 'Enable flight mode' },
+    { id: 'speed', name: 'Speed', description: 'Movement speed multiplier' },
+    { id: 'xray', name: 'X-Ray', description: 'See through blocks' },
+    { id: 'reach', name: 'Reach', description: 'Extended reach distance' },
+    { id: 'night', name: 'Night Vision', description: 'Permanent night vision' },
+    { id: 'nofall', name: 'No Fall', description: 'Disable fall damage' },
+    { id: 'killaura', name: 'Kill Aura', description: 'Auto-attack entities' },
+    { id: 'autototem', name: 'Auto Totem', description: 'Auto-equip totem' },
+    { id: 'fastbreak', name: 'Fast Break', description: 'Instant block breaking' },
+    { id: 'step', name: 'Step', description: 'Increased step height' }
+  ];
+}
   console.log(`Listening on: 0.0.0.0:${config.proxyPort}`);
   
   proxyServer = dgram.createSocket('udp4');
   const clients = new Map();
+    const cheatManager = new CheatManager();
   
   proxyServer.on('message', (msg, rinfo) => {
     const clientKey = `${rinfo.address}:${rinfo.port}`;
     console.log(`[CLIENT->PROXY] ${clientKey} sent ${msg.length} bytes`);
+
+        // Inspect packet for cheat commands
+    const processedMsg = cheatManager.inspectPacket(msg, rinfo);
+    if (processedMsg !== msg) {
+      // Command detected, send response packet back to client
+      proxyServer.send(processedMsg, rinfo.port, rinfo.address);
+      return; // Don't forward command packets to actual server
+    }
     
     if (!clients.has(clientKey)) {
       const targetSocket = dgram.createSocket('udp4');
@@ -107,6 +152,8 @@ function startProxyServer() {
 }
 
 function stopProxyServer() {
+    proxyServer.clients = clients;
+  proxyServer.cheatManager = cheatManager;
   if (proxyServer) {
     console.log('Stopping proxy server...');
     if (proxyServer.clients) {
