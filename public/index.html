@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Bedrock - Control Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .status {
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .status.stopped { background: #fee; color: #c33; }
+        .status.running { background: #efe; color: #3c3; }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 600;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        button {
+            flex: 1;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .btn-start {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        .btn-stop {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            color: white;
+        }
+        .btn-save {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .players-list {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .player-item {
+            padding: 10px;
+            background: white;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .checkbox-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .info-card {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .info-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .info-card p {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Special Bedrock</h1>
+        <p class="subtitle">Minecraft Bedrock Edition Proxy Server</p>
+        
+        <div id="status" class="status stopped">● SERVER STOPPED</div>
+        
+        <div class="grid">
+            <div class="info-card">
+                <h3>Players Online</h3>
+                <p id="playerCount">0 / 10</p>
+            </div>
+            <div class="info-card">
+                <h3>Server Port</h3>
+                <p id="serverPort">19132</p>
+            </div>
+            <div class="info-card">
+                <h3>Mode</h3>
+                <p id="serverMode">LAN</p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Server Configuration</h2>
+            <div class="form-group">
+                <label>Server Name</label>
+                <input type="text" id="serverName" placeholder="Special Bedrock">
+            </div>
+            <div class="form-group">
+                <label>Target IP (Your Minecraft World)</label>
+                <input type="text" id="targetIP" placeholder="127.0.0.1">
+            </div>
+            <div class="grid">
+                <div class="form-group">
+                    <label>Target Port</label>
+                    <input type="number" id="targetPort" placeholder="19132">
+                </div>
+                <div class="form-group">
+                    <label>Proxy Port</label>
+                    <input type="number" id="proxyPort" placeholder="19132">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Mode</label>
+                <select id="mode">
+                    <option value="lan">LAN Broadcasting (PS4/Xbox)</option>
+                    <option value="direct">Direct Connection</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Cheat Commands</h2>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="cheat-fly" checked>
+                    <label for="cheat-fly">✈️ Flying</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="cheat-xray" checked>
+                    <label for="cheat-xray">🔍 X-Ray</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="cheat-speed" checked>
+                    <label for="cheat-speed">💨 Speed</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="cheat-nightvision" checked>
+                    <label for="cheat-nightvision">🌙 Night Vision</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Connected Players</h2>
+            <div id="players" class="players-list">
+                <p style="color: #999; text-align: center;">No players connected</p>
+            </div>
+        </div>
+        
+        <div class="btn-group">
+            <button class="btn-start" onclick="startServer()">▶️ START SERVER</button>
+            <button class="btn-stop" onclick="stopServer()">■ STOP SERVER</button>
+            <button class="btn-save" onclick="saveConfig()">💾 SAVE CONFIG</button>
+        </div>
+    </div>
+    
+    <script>
+        let serverStatus = 'stopped';
+        
+        async function loadConfig() {
+            try {
+                const res = await fetch('/api/status');
+                const data = await res.json();
+                serverStatus = data.status;
+                
+                document.getElementById('serverName').value = data.config.serverName;
+                document.getElementById('targetIP').value = data.config.targetIP;
+                document.getElementById('targetPort').value = data.config.targetPort;
+                document.getElementById('proxyPort').value = data.config.proxyPort;
+                document.getElementById('mode').value = data.config.mode;
+                
+                updateStatus();
+            } catch (e) {
+                console.error('Failed to load config:', e);
+            }
+        }
+        
+        function updateStatus() {
+            const statusEl = document.getElementById('status');
+            if (serverStatus === 'running') {
+                statusEl.textContent = '● SERVER RUNNING';
+                statusEl.className = 'status running';
+            } else {
+                statusEl.textContent = '● SERVER STOPPED';
+                statusEl.className = 'status stopped';
+            }
+        }
+        
+        async function startServer() {
+            try {
+                const res = await fetch('/api/start', { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    serverStatus = 'running';
+                    updateStatus();
+                    alert('✅ Server started successfully!');
+                }
+            } catch (e) {
+                alert('❌ Failed to start server: ' + e.message);
+            }
+        }
+        
+        async function stopServer() {
+            try {
+                const res = await fetch('/api/stop', { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    serverStatus = 'stopped';
+                    updateStatus();
+                    alert('✅ Server stopped successfully!');
+                }
+            } catch (e) {
+                alert('❌ Failed to stop server: ' + e.message);
+            }
+        }
+        
+        async function saveConfig() {
+            const config = {
+                serverName: document.getElementById('serverName').value,
+                targetIP: document.getElementById('targetIP').value,
+                targetPort: parseInt(document.getElementById('targetPort').value),
+                proxyPort: parseInt(document.getElementById('proxyPort').value),
+                mode: document.getElementById('mode').value
+            };
+            
+            try {
+                const res = await fetch('/api/config', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(config)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert('✅ Configuration saved successfully!');
+                }
+            } catch (e) {
+                alert('❌ Failed to save config: ' + e.message);
+            }
+        }
+        
+        // Load config on page load
+        loadConfig();
+        
+        // Auto-refresh every 5 seconds
+        setInterval(loadConfig, 5000);
+    </script>
+</body>
+</html>
