@@ -55,12 +55,10 @@ function Update-Application {
     
     cd $INSTALL_DIR
     git pull origin main | Out-Null
-    npm install --silent | Out-Null
+        & npm.cmd install --silent --no-audit --no-fund 2>$null | Out-Null
     pkg server/index.js --targets node18-win-x64 --output SpecialBedrock.exe 2>&1 | Out-Null
     
     $splash.Close()
-    Show-Splash "UPDATED" | ForEach-Object { Start-Sleep -Seconds 2; $_.Close() }
-}
 
 # Main launcher logic
 try {
