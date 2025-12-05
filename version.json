@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "build": "2025.01.04",
+  "changelog": [
+    "Initial release with production-grade installer",
+    "Automatic update system with GitHub integration",
+    "Smart state management for resume capability",
+    "Desktop and Start Menu shortcuts with auto-launch",
+    "Complete uninstaller with one-line command",
+    "Black splash screen with professional UI",
+    "Bedrock proxy server with LAN broadcasting",
+    "PS4, Xbox, Mobile, and PC support via LAN",
+    "Port customization and cheat command helpers",
+    "Zero-configuration setup on clean Windows 11"
+  ]
+}
