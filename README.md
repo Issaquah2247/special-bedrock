@@ -625,5 +625,28 @@ All cheat commands work on PS4 and Xbox! Simply:
 > ⚠️ **Note**: These cheats are for educational purposes and singleplayer/private servers only. Using cheats on public servers may result in bans.
 
 
+---
+
+## 🗑️ Uninstall
+
+To completely remove Special Bedrock from your system, run this one-line command:
+
+**PowerShell (as Administrator):**
+
+```powershell
+irm https://raw.githubusercontent.com/Issaquah2247/special-bedrock/main/uninstall.ps1 | iex
+```
+
+This will:
+- Stop all running processes
+- Remove all shortcuts (Desktop & Start Menu)
+- Delete the installation folder
+- Clean up firewall rules
+- Remove all traces from your system
+
+You can also manually uninstall by:
+1. Deleting `%USERPROFILE%\special-bedrock`
+2. Removing shortcuts from Desktop and Start Menu
+
 
 **Made with ❤️ for the Minecraft Bedrock community**�
