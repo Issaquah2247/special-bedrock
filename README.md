@@ -42,6 +42,7 @@ Starting LAN broadcast for console discovery...
 - 🔧 **Configurable** - Change target IP, port, server name
 - 📦 **Portable** - Build as single .exe file
 - 🌐 **Web UI** - Control panel at localhost:3000
+- - ⚔️ **Cheat Commands** - Lunar-style in-game commands (.fly, .speed, .xray, etc.)
 
 > **Note**: Since this is a terminal/backend application, the main interface is the command line. The web UI (coming soon) will provide a visual control panel.
 
@@ -585,5 +586,44 @@ irm https://raw.githubusercontent.com/Issaquah2247/special-bedrock/main/uninstal
 - **State File**: `C:\Users\YourName\special-bedrock\.special-bedrock-state.json`
 
 ---
+
+### ⚔️ Cheat Commands
+
+Special Bedrock includes Lunar-style cheat commands that you can use directly in Minecraft chat! These commands work on ANY Bedrock platform including PS4, Xbox, Mobile, and PC.
+
+#### Available Commands
+
+| Command | Description | Usage Example |
+|---------|-------------|---------------|
+| `.fly` | Toggle flight mode | `.fly` |
+| `.speed [value]` | Set movement speed multiplier (1.0-5.0) | `.speed 2.5` |
+| `.xray` | Toggle X-ray vision (see through blocks) | `.xray` |
+| `.reach [value]` | Extended reach distance (3.0-10.0 blocks) | `.reach 6` |
+| `.night` | Permanent night vision | `.night` |
+| `.nofall` | Disable fall damage | `.nofall` |
+| `.killaura` | Auto-attack nearby entities | `.killaura` |
+| `.autototem` | Auto-equip totem of undying | `.autototem` |
+| `.fastbreak` | Instant block breaking | `.fastbreak` |
+| `.step [value]` | Increased step height (0.5-2.0) | `.step 1.5` |
+| `.help` | Show all available commands | `.help` |
+
+#### How It Works
+
+1. Start the Special Bedrock proxy server
+2. Connect your Minecraft client through the proxy
+3. Type any command in the Minecraft chat (starts with `.`)
+4. The proxy intercepts the command and sends back confirmation
+5. Your cheat is now active!
+
+#### PS4/Xbox Support
+
+All cheat commands work on PS4 and Xbox! Simply:
+1. Connect to the Special Bedrock server via LAN Games
+2. Use the on-screen keyboard to type commands in chat
+3. Commands activate instantly
+
+> ⚠️ **Note**: These cheats are for educational purposes and singleplayer/private servers only. Using cheats on public servers may result in bans.
+
+
 
 **Made with ❤️ for the Minecraft Bedrock community**�
