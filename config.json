@@ -1,0 +1,28 @@
+{
+  "serverName": "Special Bedrock",
+  "targetIP": "127.0.0.1",
+  "targetPort": 19132,
+  "proxyPort": 19132,
+  "httpPort": 3000,
+  "mode": "lan",
+  "maxPlayers": 10,
+  "enableCheats": true,
+  "enableLogging": true,
+  "logFile": "logs/special-bedrock.log",
+  "whitelist": {
+    "enabled": false,
+    "players": []
+  },
+  "blacklist": {
+    "enabled": false,
+    "ips": []
+  },
+  "commands": {
+    "fly": true,
+    "xray": true,
+    "speed": true,
+    "nightVision": true
+  },
+  "autoStart": false,
+  "minimizeToTray": true
+}
