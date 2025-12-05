@@ -300,4 +300,290 @@ To share your `.exe`:
 4. Add release notes
 5. Publish!
 
-Now anyone can download and run it without Node.js installed! 🎉
+Now anyone can download and run it without Node.js installed! �
+
+---
+
+## 🔄 Automatic Updates
+
+Special Bedrock checks for updates every time you launch it!
+
+### How It Works
+
+- **Automatic Check**: Launcher checks GitHub for new versions on every launch
+- **Smart Updates**: Only updates if a new version is available
+- **No Interruption**: Updates happen in the background
+- **Version Tracking**: Uses `version.json` to track current version
+
+### Updating Process
+
+1. You click the Desktop/Start Menu shortcut
+2. Launcher shows black splash screen with "COMPLETED"
+3. Checks GitHub `version.json` for new version
+4. If new version found:
+   - Shows "UPDATING..." splash screen
+   - Pulls latest changes from GitHub
+   - Rebuilds the EXE automatically
+   - Shows "UPDATED" splash screen
+5. Launches the application
+
+**You never have to manually update!**
+
+---
+
+## 🔁 Resume & State Management
+
+Special Bedrock is smart - it remembers what's already installed!
+
+### State File
+
+The installer creates `.special-bedrock-state.json` that tracks:
+
+- Which components are installed (Node.js, Git, PKG)
+- Installation progress
+- Repository status
+- Build completion
+
+### Resume Capability
+
+If your installation is interrupted:
+
+- ✅ Already installed components are skipped
+- ✅ Picks up where it left off
+- ✅ No redundant downloads
+- ✅ Clean recovery from errors
+
+**Example**: If internet drops during Git install, just re-run the installer and it will skip Node.js (already installed) and continue with Git!
+
+---
+
+## 🗑️ Complete Uninstaller
+
+Uninstalling is just as easy as installing!
+
+### One-Line Uninstall
+
+Open PowerShell **as Administrator** and run:
+
+```powershell
+irm https://raw.githubusercontent.com/Issaquah2247/special-bedrock/main/uninstall.ps1 | iex
+```
+
+### What Gets Removed
+
+The uninstaller completely removes:
+
+- ✅ Desktop shortcut (`Special Bedrock.lnk`)
+- ✅ Start Menu shortcut
+- ✅ Entire installation directory (`C:\Users\YourName\special-bedrock`)
+- ✅ Firewall rules for Special Bedrock
+- ✅ Registry entries
+- ✅ State files
+
+### Safety Features
+
+- **Confirmation Required**: Asks before removing anything
+- **Process Termination**: Stops any running Special Bedrock processes first
+- **Error Handling**: Shows clear messages if manual cleanup needed
+- **Reinstall Instructions**: Provides one-line reinstall command after completion
+
+---
+
+## 📁 Project Files Explained
+
+Here's what each file does:
+
+### Core Files
+
+| File | Purpose |
+|------|---------|
+| `server/index.js` | Main proxy server with UDP forwarding and LAN broadcasting |
+| `package.json` | Node.js dependencies and project configuration |
+| `version.json` | Version tracking for auto-updates |
+
+### Installation Scripts
+
+| File | Purpose |
+|------|-------------------------------|
+| `install.ps1` | Production-grade installer with state management and resume capability |
+| `launcher.ps1` | Smart launcher that checks for updates and auto-launches app |
+| `uninstall.ps1` | Complete removal script with cleanup |
+
+### What Each Script Does
+
+#### `install.ps1` (258 lines)
+
+- Checks if running as Administrator
+- Installs Chocolatey (if not present)
+- Installs Node.js, Git, and PKG (only if needed)
+- Clones repository from GitHub
+- Installs npm dependencies
+- Builds Windows EXE using `pkg`
+- Creates Desktop shortcut
+- Creates Start Menu shortcut
+- Shows black splash screen with "COMPLETED"
+- Auto-launches application and browser
+- Saves state after each step for resume capability
+
+#### `launcher.ps1` (83 lines)
+
+- Shows black splash screen
+- Checks GitHub for new version
+- Downloads and installs updates if available
+- Launches SpecialBedrock.exe (hidden window)
+- Opens browser to `http://localhost:3000`
+- All operations are automatic
+
+#### `uninstall.ps1` (90+ lines)
+
+- Confirms removal with user
+- Terminates running processes
+- Removes shortcuts (Desktop + Start Menu)
+- Deletes installation directory
+- Cleans firewall rules
+- Removes registry entries
+- Shows completion message with reinstall command
+
+---
+
+## 🎯 Advanced Features Summary
+
+### ✨ Production-Grade Installation
+
+- **One-Line Install**: Single PowerShell command for complete setup
+- **Zero Configuration**: Works on completely clean Windows 11
+- **Smart Detection**: Skips already-installed components
+- **State Management**: Resume from where installation stopped
+- **Professional UI**: Black splash screens with white text
+
+### 🔄 Automatic Updates
+
+- **GitHub Integration**: Checks for updates on every launch
+- **Silent Updates**: Downloads and installs in background
+- **Version Control**: Tracks versions via `version.json`
+- **No User Action**: Completely automatic
+
+### 🚀 Launch Experience
+
+- **Desktop Shortcut**: Click icon to launch
+- **Start Menu Integration**: Find in Windows Start Menu
+- **Auto-Launch**: Opens browser automatically
+- **Hidden Process**: Runs in background quietly
+
+### 🗑️ Clean Removal
+
+- **One-Line Uninstall**: Single command removes everything
+- **Complete Cleanup**: No traces left behind
+- **Safe Removal**: Confirms before deleting
+- **Reinstall Ready**: Provides reinstall command
+
+### 🎮 Minecraft Features
+
+- **PS4/PS5 Support**: Appears as LAN game
+- **Xbox Support**: LAN discovery
+- **Mobile Support**: Join via local IP
+- **PC Support**: Direct connection
+- **Port Customization**: Change ports as needed
+- **Cheat Helpers**: Command shortcuts for flying, xray, etc.
+
+---
+
+## 🐛 Troubleshooting
+
+### Installation Issues
+
+**Problem**: "Cannot run scripts"
+- **Solution**: Run PowerShell as Administrator
+
+**Problem**: "Execution policy error"
+- **Solution**: The installer handles this automatically
+
+**Problem**: Installation interrupted
+- **Solution**: Just run the install command again - it will resume!
+
+### Update Issues
+
+**Problem**: Update fails
+- **Solution**: Launcher continues with old version - no blocking
+
+**Problem**: GitHub unreachable
+- **Solution**: App launches without update check
+
+### Connection Issues
+
+**Problem**: PS4 can't see server
+- **Solution**: Make sure both devices are on same WiFi network
+
+**Problem**: Firewall blocking
+- **Solution**: Installer configures firewall automatically
+
+**Problem**: Port already in use
+- **Solution**: Change port in web panel configuration
+
+---
+
+## 📊 System Requirements
+
+### Minimum Requirements
+
+- **OS**: Windows 10/11 (64-bit)
+- **RAM**: 2GB (4GB recommended)
+- **Disk Space**: 500MB for installation
+- **Network**: WiFi or Ethernet
+- **Permissions**: Administrator access for installation
+
+### What Gets Installed
+
+- **Node.js**: (~50MB) - JavaScript runtime
+- **Git**: (~300MB) - Version control
+- **PKG**: (~50MB) - EXE builder
+- **Special Bedrock**: (~100MB) - The application
+
+**Total**: ~500MB
+
+### After Installation
+
+Once installed, the standalone EXE is only ~100MB and includes everything needed!
+
+---
+
+## 🙏 Support
+
+Having issues? Here's how to get help:
+
+1. **Check Troubleshooting**: See section above
+2. **GitHub Issues**: [Report a bug](https://github.com/Issaquah2247/special-bedrock/issues)
+3. **Reinstall**: Use the uninstall command, then reinstall
+
+---
+
+## 🎉 Quick Reference
+
+### Installation Commands
+
+```powershell
+# Install
+irm https://raw.githubusercontent.com/Issaquah2247/special-bedrock/main/install.ps1 | iex
+
+# Uninstall
+irm https://raw.githubusercontent.com/Issaquah2247/special-bedrock/main/uninstall.ps1 | iex
+```
+
+### After Installation
+
+1. Click **Desktop shortcut** or find in **Start Menu**
+2. Browser opens automatically to `http://localhost:3000`
+3. Configure your target Minecraft world IP
+4. Click "Start Server"
+5. Connect from PS4/Xbox/Mobile!
+
+### File Locations
+
+- **Installation**: `C:\Users\YourName\special-bedrock\`
+- **Desktop Shortcut**: `C:\Users\YourName\Desktop\Special Bedrock.lnk`
+- **Start Menu**: `C:\Users\YourName\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Special Bedrock.lnk`
+- **State File**: `C:\Users\YourName\special-bedrock\.special-bedrock-state.json`
+
+---
+
+**Made with ❤️ for the Minecraft Bedrock community**�
