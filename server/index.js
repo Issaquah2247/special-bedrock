@@ -9,6 +9,7 @@ const HTTP_PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '../public')));
 
 let proxyServer = null;
 let config = {
