@@ -3,6 +3,10 @@
 # One-Line Install: irm https://raw.githubusercontent.com/Issaquah2247/special-bedrock/main/install.ps1 | iex
 # ==========================================
 
+# Fix execution policy for npm and other scripts
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force -ErrorAction SilentlyContinue
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force -ErrorAction SilentlyContinue
+
 $ErrorActionPreference = "Stop"
 $ProgressPreference = 'SilentlyContinue'
 
@@ -110,8 +114,8 @@ function Install-Repository {
 function Install-Dependencies {
     Write-Host "[5/8] Installing dependencies..." -ForegroundColor Cyan
     cd $INSTALL_DIR
-    npm install --silent | Out-Null
-    Write-Host "      DONE" -ForegroundColor Green
+        & npm.cmd install --silent --no-audit --no-fund 2>$null | Out-Null
+            Write-Host "     DONE" -ForegroundColor Green
 }
 
 function Install-PKG {
@@ -122,8 +126,8 @@ function Install-PKG {
     }
     
     Write-Host "[6/8] Installing PKG..." -ForegroundColor Cyan
-    npm install -g pkg --silent | Out-Null
-    $State.pkg_installed = $true
+    & npm.cmd install -g pkg --silent --no-audit --no-fund 2>$null | Out-Null
+        $State.pkg_installed = $true
     Save-State $State
     Write-Host "      DONE" -ForegroundColor Green
     return $State
